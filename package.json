@@ -1,0 +1,17 @@
+{
+  "name": "html-json-forms",
+  "version": "0.0.1",
+  "description": "submit html forms as json",
+  "main": "jquery.html-json-forms.js",
+  "scripts": {
+    "test": "open test/runners/index.html"
+  },
+  "keywords": [
+    "jquery",
+    "html",
+    "json",
+    "forms",
+  ],
+  "author": "Cezary Wojtkowski",
+  "license": "MIT"
+}

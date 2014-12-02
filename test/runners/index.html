@@ -1,0 +1,97 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="css/mocha.css" />
+  <style>
+    form[enctype='application/json'] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="js/chai.js"></script>
+  <script>
+    chai.Should();
+  </script>
+  <script src="js/mocha.js"></script>
+  <script src="js/bridge.js"></script>
+  <script src="js/jquery.js"></script>
+  <script>
+    mocha.setup('bdd');
+    mocha.setup({ignoreLeaks:true});
+  </script>
+
+  <script src="../../jquery.html-json-forms.js"></script>
+
+  <form class='basic' enctype='application/json'>
+    <input name='name' value='Bender'>
+    <select name='hind'>
+      <option selected>Bitable</option>
+      <option>Kickable</option>
+    </select>
+    <input type='checkbox' name='shiny' checked>
+  </form>
+  <script src="../js/basic.js"></script>
+
+  <form class='multiple-values' enctype='application/json'>
+    <input type='number' name='bottle-on-wall' value='1'>
+    <input type='number' name='bottle-on-wall' value='2'>
+    <input type='number' name='bottle-on-wall' value='3'>
+  </form>
+  <script src="../js/multiple-values.js"></script>
+
+  <form class='deeper-structure' enctype='application/json'>
+    <input name='pet[species]' value='Dahut'>
+    <input name='pet[name]' value='Hypatia'>
+    <input name='kids[1]' value='Thelma'>
+    <input name='kids[0]' value='Ashley'>
+  </form>
+  <script src="../js/deeper-structure.js"></script>
+
+  <form class='sparse-arrays' enctype='application/json'>
+    <input name='heartbeat[0]' value='thunk'>
+    <input name='heartbeat[2]' value='thunk'>
+  </form>
+  <script src="../js/sparse-arrays.js"></script>
+
+  <form class='even-deeper-structure' enctype='application/json'>
+    <input name='pet[0][species]' value='Dahut'>
+    <input name='pet[0][name]' value='Hypatia'>
+    <input name='pet[1][species]' value='Felis Stultus'>
+    <input name='pet[1][name]' value='Billie'>
+  </form>
+  <script src="../js/even-deeper-structure.js"></script>
+
+  <form class='any-depth' enctype='application/json'>
+    <input name='wow[such][deep][3][much][power][!]' value='Amaze'>
+  </form>
+  <script src="../js/any-depth.js"></script>
+
+  <form class='merge-behavior' enctype='application/json'>
+    <input name='mix' value='scalar'>
+    <input name='mix[0]' value='array 1'>
+    <input name='mix[2]' value='array 2'>
+    <input name='mix[key]' value='key key'>
+    <input name='mix[car]' value='car key'>
+  </form>
+  <script src="../js/merge-behavior.js"></script>
+
+  <form class='append' enctype='application/json'>
+    <input name='highlander[]' value='one'>
+  </form>
+  <script src="../js/append.js"></script>
+
+  <form class='invalid' enctype='application/json'>
+    <input name='error[good]' value='BOOM!'>
+    <input name='error[bad' value='BOOM BOOM!'>
+  </form>
+  <script src="../js/invalid.js"></script>
+
+  <script>
+    mocha.run();
+  </script>
+</body>
+</html>
+

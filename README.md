@@ -1,12 +1,27 @@
-# jquery html json forms
+# JSONForms
 
-A jquery implementation of the [draft](http://www.w3.org/TR/html-json-forms/) for
-submitting forms encoded as json.
+An implementation of the algorithm outlined [here](http://www.w3.org/TR/html-json-forms/)
+for submitting form data as JSON. Convert any form into a structured JSON object.
 
 ## Usage:
 
 Include the script in your page and any form with an attribute of
 enctype set to 'application/json' will submit data with a json payload.
+
+To disable json post submission
+```javascript
+JSONForms.disable()
+```
+
+To enable
+```javascript
+JSONForms.enable()
+```
+
+To create a JSON object of a form
+```javascript
+JSONForms.encode(formElement)
+```
 
 ```html
 <form enctype='application/json'>
@@ -19,7 +34,7 @@ enctype set to 'application/json' will submit data with a json payload.
 </form>
 ```
 produces
-```js
+```javascript
 {
   "places": [
     {
@@ -38,14 +53,7 @@ produces
 }
 ```
 
-To disable json post submission, call `$.JSONform.disable()`.
-
-To enable, `$.JSONform.enable()`.
-
-Call `$(formElement).JSONencode()` to get a JSON object representing
-formElement.
-
 ## TODO
 
 * Add support for input types like date, file
-* Add support for other input elements like radios, selects, textareas
+* Add support for other input elements like radios, textareas

@@ -1,5 +1,6 @@
 describe('form with basic keys', function() {
-  var formJSON = $('form.basic').JSONencode();
+  var formEl = document.querySelector('form.basic');
+  var formJSON = JSONForms.encode(formEl);
 
   it('should not be empty', function() {
     formJSON.should.not.be.empty;

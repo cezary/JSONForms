@@ -1,5 +1,6 @@
 describe('form with deep and array structure', function() {
-  var formJSON = $('form.even-deeper-structure').JSONencode();
+  var formEl = document.querySelector('form.even-deeper-structure');
+  var formJSON = JSONForms.encode(formEl);
 
   it('should not be empty', function() {
     formJSON.should.not.be.empty;

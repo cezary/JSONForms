@@ -1,5 +1,6 @@
 describe('form with invalid keys', function() {
-  var formJSON = $('form.invalid').JSONencode();
+  var formEl = document.querySelector('form.invalid');
+  var formJSON = JSONForms.encode(formEl);
 
   it('should not be empty', function() {
     formJSON.should.not.be.empty;

@@ -1,5 +1,6 @@
 describe('form with multiple values', function() {
-  var formJSON = $('form.multiple-values').JSONencode();
+  var formEl = document.querySelector('form.multiple-values');
+  var formJSON = JSONForms.encode(formEl);
 
   it('should not be empty', function() {
     formJSON.should.not.be.empty;

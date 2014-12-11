@@ -1,5 +1,6 @@
 describe('form with append notation', function() {
-  var formJSON = $('form.append').JSONencode();
+  var formEl = document.querySelector('form.append');
+  var formJSON = JSONForms.encode(formEl);
 
   it('should not be empty', function() {
     formJSON.should.not.be.empty;

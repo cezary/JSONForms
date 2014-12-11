@@ -1,5 +1,6 @@
 describe('form with merge behavior', function() {
-  var formJSON = $('form.merge-behavior').JSONencode();
+  var formEl = document.querySelector('form.merge-behavior');
+  var formJSON = JSONForms.encode(formEl);
 
   it('should not be empty', function() {
     formJSON.should.not.be.empty;

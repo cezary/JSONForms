@@ -207,16 +207,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // input elements
 	    .concat(Array.prototype.slice.call(formEl.querySelectorAll('input:not([type=submit])')).map(function(el) {
 	      var entry = { name: el.name, value: el.value };
-	      if (el.type === 'number')
-	        entry.value = parseInt(el.value, 10);
-	      if (el.type === 'checkbox')
-	        entry.value = el.checked
+
+	      switch (el.type) {
+	        case 'checkbox':
+	          entry.value = el.checked
+	          break;
+	        case 'number':
+	          entry.value = parseInt(el.value, 10);
+	          break;
+	        case 'radio':
+	          if (el.checked)
+	            entry.value === el.value;
+	          else
+	            return null;
+	          break;
+	      }
 	      return entry;
 	    }))
 	    // select elements
 	    .concat(Array.prototype.slice.call(formEl.querySelectorAll('select')).map(function(el) {
 	      return { name: el.name, value: el.value };
-	    }));
+	    }))
+	    .concat(Array.prototype.slice.call(formEl.querySelectorAll('textarea')).map(function(el) {
+	      return { name: el.name, value: el.value };
+	    }))
+	    .filter(function(entry) { return entry;});
 	};
 
 	function JSONFormSubmitHandler(e) {

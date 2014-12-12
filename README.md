@@ -56,5 +56,5 @@ JSONForms.encode(formElement)
 
 ## TODO
 
-* Add support for input types like date, file
-* Add support for other input elements like radios, textareas
+* Add support for file input types
+* ~~Add support for other input elements like radios, textareas~~

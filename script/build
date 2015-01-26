@@ -1,0 +1,8 @@
+#!/bin/sh
+webpack --devtool source-map
+
+node_modules/.bin/uglifyjs dist/json-forms.js \
+  --output dist/json-forms.min.js \
+  --source-map dist/json-forms.min.map \
+  --source-map-url json-forms.min.map \
+  --compress warnings=false

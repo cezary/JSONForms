@@ -55,13 +55,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	var Gn={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;"}
-
+	
 	function isNumeric(value) {
 	  return /^\d+$/.test(value);
 	}
-
+	
 	function parsePath(path) {
 	  var originalPath = path;
 	  var steps = [];
@@ -77,10 +77,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      type:'object'
 	    });
 	  }
-
+	
 	  var key;
 	  key = path.substr(1, path.indexOf(']')-1);
-
+	
 	  while (path.length && !error) {
 	    if (path[0] === '[' && path[1] === ']') {
 	      steps.push({
@@ -106,7 +106,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      error = true;
 	    }
 	  }
-
+	
 	  if (error) {
 	    steps = [{
 	      key: originalPath,
@@ -124,10 +124,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  }
-
+	
 	  return steps;
 	}
-
+	
 	function setValue(context, step, currentValue, entryValue, isFile) {
 	  if (isFile) {
 	    entryValue = {
@@ -147,13 +147,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      context[step.key].push(entryValue);
 	    } else if (currentValue.constructor == Object && !isFile) {
 	      return setValue(currentValue, {key:'', last:true, type:'object'}, currentValue[''], entryValue, isFile);
-
+	
 	    } else {
 	      context[step.key] = [currentValue, entryValue];
 	    }
 	    return context;
 	  }
-
+	
 	  if (typeof currentValue === 'undefined') {
 	    if (step.nextType === 'array') {
 	      context[step.key] = [];
@@ -183,11 +183,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return object;
 	  }
 	}
-
+	
 	function JSONEncode(formEl) {
 	  var entries = collectEntries(formEl);
 	  var resultingObject = {};
-
+	
 	  entries.forEach(function(entry) {
 	    var isFile = entry.value && entry.value.body !== undefined;
 	    var steps = parsePath(entry.name);
@@ -198,16 +198,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      context = setValue(context, step, currentValue, entry.value, isFile);
 	    }
 	  });
-
+	
 	  return resultingObject;
 	}
-
+	
 	function collectEntries(formEl) {
 	  return []
 	    // input elements
 	    .concat(Array.prototype.slice.call(formEl.querySelectorAll('input:not([type=submit])')).map(function(el) {
 	      var entry = { name: el.name, value: el.value };
-
+	
 	      switch (el.type) {
 	        case 'checkbox':
 	          entry.value = el.checked
@@ -225,24 +225,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return entry;
 	    }))
 	    // select elements
-	    .concat(Array.prototype.slice.call(formEl.querySelectorAll('select')).map(function(el) {
+	    .concat(Array.prototype.slice.call(formEl.querySelectorAll('select:not([multiple])')).map(function(el) {
 	      return { name: el.name, value: el.value };
+	    }))
+	    .concat(Array.prototype.slice.call(formEl.querySelectorAll('select[multiple] option[selected]')).map(function(el) {
+	      var selectEl = parent(el, 'select');
+	      return { name: selectEl.name, value: el.value };
 	    }))
 	    .concat(Array.prototype.slice.call(formEl.querySelectorAll('textarea')).map(function(el) {
 	      return { name: el.name, value: el.value };
 	    }))
 	    .filter(function(entry) { return entry;});
 	};
-
+	
+	function parent(el, tagName) {
+	  tagName = tagName.toLowerCase();
+	
+	  while (el && el.parentNode) {
+	    el = el.parentNode;
+	    if (el.tagName && el.tagName.toLowerCase() == tagName) {
+	      return el;
+	    }
+	  }
+	  return null;
+	}
+	
 	function JSONFormSubmitHandler(e) {
 	  var data;
 	  var el = e.target;
 	  var request;
-
+	
 	  if (el.tagName !== 'FORM' || el.getAttribute('enctype') !== 'application/json') return;
-
+	
 	  e.preventDefault();
-
+	
 	  data = JSON.stringify(JSONEncode(el));
 	  request = new XMLHttpRequest();
 	  request.open('POST', el.action);
@@ -256,7 +272,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	}
-
+	
 	module.exports = {
 	  enable: function() {
 	    addEventListener('submit', JSONFormSubmitHandler);
@@ -271,3 +287,5 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ }
 /******/ ])
 });
+
+//# sourceMappingURL=json-forms.map
